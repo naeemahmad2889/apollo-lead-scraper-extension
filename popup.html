@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{width:290px;background:#0f172a;color:#e2e8f0;font-family:'Segoe UI',system-ui,sans-serif;padding:15px}
+    .header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    h1{font-size:13px;font-weight:800;color:#f1f5f9}
+    .sub{font-size:10px;color:#64748b;margin-top:1px}
+    .card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px;margin-bottom:10px}
+    label{display:block;font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+    input,select{width:100%;background:#0f172a;border:1px solid #334155;border-radius:6px;padding:7px 9px;font-size:11px;color:#e2e8f0;outline:none;transition:border-color .2s}
+    input:focus,select:focus{border-color:#6366f1}
+    input::placeholder{color:#475569}
+    .btn{width:100%;margin-top:7px;padding:8px;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff}
+    .btn-primary:hover{opacity:.88}
+    .btn-primary:disabled{opacity:.4;cursor:not-allowed}
+    .btn-sm{background:transparent;border:1px solid #334155;color:#94a3b8;font-size:11px}
+    .btn-sm:hover{border-color:#6366f1;color:#e2e8f0}
+    .status{margin-top:6px;padding:6px 9px;border-radius:6px;font-size:11px;display:none;line-height:1.5}
+    .status.ok{background:#14532d;color:#86efac;display:block}
+    .status.err{background:#7f1d1d;color:#fca5a5;display:block}
+    .status.info{background:#1e3a5f;color:#93c5fd;display:block}
+    .workflow{font-size:11px;color:#64748b;line-height:1.7;margin-bottom:8px}
+    .workflow strong{color:#cbd5e1}
+    .workflow .step{display:flex;gap:7px;margin-bottom:2px}
+    .workflow .num{background:#1e3a5f;color:#60a5fa;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;margin-top:1px}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+    .stat{background:#0f172a;border-radius:6px;padding:7px;text-align:center}
+    .stat-n{font-size:20px;font-weight:800;color:#a5b4fc}
+    .stat-l{font-size:9px;color:#64748b;margin-top:1px;text-transform:uppercase}
+    .divider{border:none;border-top:1px solid #334155;margin:10px 0}
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">🤖</div>
+  <div>
+    <h1>Apollo Lead Agent</h1>
+    <div class="sub">Check contacts → Agent scrapes everything</div>
+  </div>
+</div>
+
+<!-- How it works -->
+<div class="card">
+  <div class="workflow">
+    <div class="step"><div class="num">1</div><div>Browse Apollo People list</div></div>
+    <div class="step"><div class="num">2</div><div><strong>Check ✅</strong> the contacts you want</div></div>
+    <div class="step"><div class="num">3</div><div>Click <strong>▶ Process Checked</strong> below</div></div>
+    <div class="step"><div class="num">4</div><div>Agent opens each profile + company page, saves all URLs to Sheets</div></div>
+    <div class="step"><div class="num">5</div><div>You go to next page, repeat</div></div>
+  </div>
+</div>
+
+<!-- Apps Script URL -->
+<div class="card">
+  <label>Google Apps Script URL</label>
+  <input id="urlInput" type="text" placeholder="https://script.google.com/macros/s/.../exec"/>
+  <div style="display:flex;gap:6px">
+    <button class="btn btn-sm" id="saveUrlBtn" style="flex:1;margin-top:7px">💾 Save</button>
+    <button class="btn btn-sm" id="testBtn" style="flex:1;margin-top:7px">🧪 Test</button>
+  </div>
+  <div class="status" id="urlStatus"></div>
+</div>
+
+<!-- Speed -->
+<div class="card">
+  <label>Speed between profiles</label>
+  <select id="speedSelect">
+    <option value="6000">🐢 Slow — 6s (slow internet)</option>
+    <option value="4000" selected>🚶 Medium — 4s (recommended)</option>
+    <option value="2500">🏃 Fast — 2.5s (good connection)</option>
+  </select>
+</div>
+
+<!-- Start button -->
+<div class="card">
+  <button class="btn btn-primary" id="startBtn">▶ Process Checked Contacts</button>
+  <div class="status info" id="startStatus" style="display:block;margin-top:8px">
+    Go to Apollo People list → check contacts → click above
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="statSaved">0</div><div class="stat-l">Saved</div></div>
+    <div class="stat"><div class="stat-n" id="statSkipped">0</div><div class="stat-l">Skipped</div></div>
+  </div>
+
+  <button class="btn btn-sm" id="resetBtn" style="margin-top:8px;font-size:10px">🗑 Reset saved history</button>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
