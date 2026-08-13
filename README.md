@@ -137,10 +137,10 @@ MIT License — free to use, modify, and distribute.
 
 ## 👤 Author
 
-**Muhammad Hamza Kaleem**
+**Naeem Ahmad**
 AI Automation Consultant — I help businesses automate repetitive workflows using LLMs, Chrome Extensions, and custom AI systems.
 
-🔗 [LinkedIn](https://www.linkedin.com/in/muhammad-hamza-kaleem)
+🔗 [LinkedIn](https://www.linkedin.com/in/naeem-ahmad-hi/)
 
 ---
 
